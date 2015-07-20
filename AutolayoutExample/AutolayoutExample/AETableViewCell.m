@@ -8,7 +8,7 @@
 
 #import "AETableViewCell.h"
 
-static const CGFloat margin = 10.0;
+//static const CGFloat margin = 10.0;
 
 @implementation AETableViewCell
 
@@ -21,7 +21,7 @@ static const CGFloat margin = 10.0;
     [self.photoButton setTitle:@"Add" forState:UIControlStateNormal];
     [self.photoButton setTintColor:[UIColor whiteColor]];
     [self.photoButton setBackgroundColor:[UIColor blueColor]];
-//    self.photoButton.titleLabel.
+    self.photoButton.titleLabel.adjustsFontSizeToFitWidth = YES;
     [self.contentView addSubview:self.photoButton];
     
     self.nameField = [UITextField new];
@@ -48,6 +48,14 @@ static const CGFloat margin = 10.0;
                                                                    options:NSLayoutFormatAlignAllCenterY
                                                                    metrics:nil
                                                                      views:viewsDictionary];
+    
+    [self.contentView addConstraints:constraints];
+    
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_photoButton]-|"
+                                                          options:0
+                                                          metrics:nil
+                                                            views:viewsDictionary];
+    
     [self.contentView addConstraints:constraints];
     
     NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.scoreField
@@ -59,11 +67,15 @@ static const CGFloat margin = 10.0;
                                                                    constant:0.0];
     [self.contentView addConstraint:constraint];
     
-    constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[_photoButton]-|"
-                                                          options:0
-                                                          metrics:nil
-                                                            views:viewsDictionary];
-    constraint = [NSLayoutConstraint constraintWithItem:self. attribute:<#(NSLayoutAttribute)#> relatedBy:<#(NSLayoutRelation)#> toItem:<#(id)#> attribute:<#(NSLayoutAttribute)#> multiplier:<#(CGFloat)#> constant:<#(CGFloat)#>]
+    NSLayoutConstraint *constraint2 = [NSLayoutConstraint constraintWithItem:self.photoButton
+                                                                   attribute:NSLayoutAttributeWidth
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.photoButton
+                                                                   attribute:NSLayoutAttributeHeight
+                                                                  multiplier:1.0
+                                                                    constant:0.0];
+    
+    [self.contentView addConstraint: constraint2];
     
     return self;
 }
